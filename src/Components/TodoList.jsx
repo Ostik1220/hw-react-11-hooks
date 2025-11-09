@@ -1,25 +1,46 @@
-import { StyledList } from "./TodoList.styled";
-// import { StyledItem } from "./TodoList.styled";
+import { StyledList, StyledItem } from "./TodoList.styled";
+// import {  } from "./TodoList.styled";
 import { Component } from "react";
 
 class TodoList extends Component {
-state = {
-    todos: this.props,
-}  
+  handleDelete = (todoId) => {
+    this.props.onDelete(todoId);
+  }
 
-checkboxChange = (e) => {
+  CheckedChekcbox = (e) => {
     console.log(e.target.parentElement.id);
-}
+  }
 
   render() {
-    const listOfTodos = this.state.todos.props.map((todo) => (
-      <li key={todo.id} id={todo.id}>
-        <input type="checkbox" value={todo.completed}  key={todo.id} onChange={this.checkboxChange}/>
-        <p>{todo.text}</p>
-        <button>Delete</button>
-        </li>    
-        ));
-    console.log(this.state.todos);
+    const listOfTodos = this.props.todos.map((todo) => {
+      if (todo.completed === true) {
+        return (
+        <StyledItem key={todo.id} id={todo.id}>
+          <input 
+            type="checkbox" 
+            checked
+            onChange={this.CheckedChekcbox}
+          />
+          <p>{todo.text}</p>
+          <button onClick={() => this.handleDelete(todo.id)}>Видалити</button>
+        </StyledItem>
+        )
+    } else {
+        return (
+        <StyledItem key={todo.id} id={todo.id}>
+          <input 
+            type="checkbox"
+            onChange={this.CheckedChekcbox}
+          />
+          <p>{todo.text}</p>
+          <button onClick={() => this.handleDelete(todo.id)}>Видалити</button>
+        </StyledItem>
+        );
+    }
+    });
+
+
+    console.log(this.props.todos);
     return <StyledList>{listOfTodos}</StyledList>;
   }
 }
