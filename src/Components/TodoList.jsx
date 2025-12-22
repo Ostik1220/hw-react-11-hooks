@@ -2,7 +2,7 @@ import { StyledList, StyledItem } from "./TodoList.styled";
 // import {  } from "./TodoList.styled";
 import { Component } from "react";
 
-const TodoList = ({todos, onDelete}) => {
+const TodoList = ({todos, onDelete, onToggle}) => {
 
   // handleDelete = (todoId) => {
   //   this.props.onDelete(todoId);
@@ -12,9 +12,7 @@ const TodoList = ({todos, onDelete}) => {
     onDelete(todoId);
   }
 
-  const CheckedChekcbox = (e) => {
-    console.log(e.target.parentElement.id);
-  }
+
 
 
     const listOfTodos = todos.map((todo) => {
@@ -24,7 +22,7 @@ const TodoList = ({todos, onDelete}) => {
           <input 
             type="checkbox" 
             checked
-            onChange={CheckedChekcbox}
+            onChange={() => onToggle(todo.id)}
           />
           <p>{todo.text}</p>
           <button onClick={() => handleDelete(todo.id)}>Видалити</button>
@@ -35,7 +33,7 @@ const TodoList = ({todos, onDelete}) => {
         <StyledItem key={todo.id} id={todo.id}>
           <input 
             type="checkbox"
-            onChange={CheckedChekcbox}
+            onChange={() => onToggle(todo.id)}
           />
           <p>{todo.text}</p>
           <button onClick={() => handleDelete(todo.id)}>Видалити</button>
